@@ -6,14 +6,14 @@ Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
 Version:	2011.4.12
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
 # Source0-md5:	9c4ce318373b15332239a77a9d2a39fe
-Source1:	ntfs-3g.fdi
-Source2:	ntfs-3g.rules
+Source1:	%{name}.fdi
+Source2:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -112,7 +112,7 @@ Współdzielone biblioteki ntfs-3g.
 Summary:	Header files for libntfs-3g library
 Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki libntfs-3g
 Group:		Development/Libraries
-Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
+Requires:	ntfs-3g-libs = %{version}-%{release}
 
 %description -n ntfs-3g-devel
 This package includes the header files needed to link software with
@@ -126,7 +126,7 @@ bibliotek libntfs-3g.
 Summary:	Static version of libntfs-3g library
 Summary(pl.UTF-8):	Statyczna wersja bibliotek libntfs-3g
 Group:		Development/Libraries
-Requires:	ntfs-3g-devel = %{epoch}:%{version}-%{release}
+Requires:	ntfs-3g-devel = %{version}-%{release}
 
 %description -n ntfs-3g-static
 This package contains the static version of libntfs-3g library.
@@ -138,7 +138,7 @@ Ten pakiet zawiera statyczną wersję bibliotek libntfs-3g.
 Summary:	HAL integration for ntfs-3g
 Summary(pl.UTF-8):	Integracja ntfs-3g z HAL-em
 Group:		Applications/System
-Requires:	ntfs-3g = %{epoch}:%{version}-%{release}
+Requires:	ntfs-3g = %{version}-%{release}
 
 %description -n ntfs-3g-hal
 HAL integration for ntfs-3g.
@@ -150,7 +150,7 @@ Integracja ntfs-3g z HAL-em.
 Summary:	udev integration for ntfs-3g
 Summary(pl.UTF-8):	Integracja ntfs-3g z udevem
 Group:		Applications/System
-Requires:	ntfs-3g = %{epoch}:%{version}-%{release}
+Requires:	ntfs-3g = %{version}-%{release}
 
 %description -n ntfs-3g-udev
 udev integration for ntfs-3g.
