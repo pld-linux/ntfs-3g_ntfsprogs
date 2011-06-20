@@ -193,8 +193,8 @@ ln -sf %{_bindir}/ntfs-3g $RPM_BUILD_ROOT%{_sbindir}/mount.ntfs
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post -n ntfs-3g-libs -p /sbin/ldconfig
+%postun -n ntfs-3g-libs -p /sbin/ldconfig
 
 %files -n ntfsprogs
 %defattr(644,root,root,755)
