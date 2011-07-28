@@ -7,6 +7,7 @@ Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
 Version:	2011.4.12
 Release:	0.2
+Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
@@ -134,23 +135,12 @@ This package contains the static version of libntfs-3g library.
 %description -n ntfs-3g-static -l pl.UTF-8
 Ten pakiet zawiera statyczną wersję bibliotek libntfs-3g.
 
-%package -n ntfs-3g-hal
-Summary:	HAL integration for ntfs-3g
-Summary(pl.UTF-8):	Integracja ntfs-3g z HAL-em
-Group:		Applications/System
-Requires:	ntfs-3g = %{version}-%{release}
-
-%description -n ntfs-3g-hal
-HAL integration for ntfs-3g.
-
-%description -n ntfs-3g-hal -l pl.UTF-8
-Integracja ntfs-3g z HAL-em.
-
 %package -n ntfs-3g-udev
 Summary:	udev integration for ntfs-3g
 Summary(pl.UTF-8):	Integracja ntfs-3g z udevem
 Group:		Applications/System
 Requires:	ntfs-3g = %{version}-%{release}
+Obsoletes:	ntfs-3g-hal
 
 %description -n ntfs-3g-udev
 udev integration for ntfs-3g.
@@ -176,7 +166,7 @@ Integracja ntfs-3g z udevem.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/hal/fdi/policy/10osvendor,/lib/udev/rules.d}
+install -d $RPM_BUILD_ROOT/lib/udev/rules.d
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -184,7 +174,6 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/hal/fdi/policy/10osvendor,/lib/udev/rules
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man8/mount.ntfs-3g.8
 echo ".so ntfs-3g.8" > $RPM_BUILD_ROOT%{_mandir}/man8/mount.ntfs-3g.8
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/hal/fdi/policy/10osvendor/10-ntfs-3g.fdi
 install %{SOURCE2} $RPM_BUILD_ROOT/lib/udev/rules.d/99-ntfs3g.rules
 
 # Symlink to allow automount using ntfs-3g:
@@ -259,10 +248,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-static
 %defattr(644,root,root,755)
 %{_libdir}/libntfs-3g.a
-
-%files -n ntfs-3g-hal
-%defattr(644,root,root,755)
-%{_datadir}/hal/fdi/policy/10osvendor/10-ntfs-3g.fdi
 
 %files -n ntfs-3g-udev
 %defattr(644,root,root,755)
