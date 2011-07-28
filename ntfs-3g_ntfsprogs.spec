@@ -6,7 +6,7 @@ Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
 Version:	2011.4.12
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
@@ -87,6 +87,7 @@ Więcej informacji na temat tych narzędzi można znaleźć w manualach.
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Group:		Applications/System
+Obsoletes:	ntfsprogs-fuse
 
 %description -n ntfs-3g
 The driver to NTFS with read and write support. It is able to
@@ -113,6 +114,7 @@ Summary:	Header files for libntfs-3g library
 Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki libntfs-3g
 Group:		Development/Libraries
 Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
+Obsoletes:	ntfsprogs-devel
 
 %description -n ntfs-3g-devel
 This package includes the header files needed to link software with
