@@ -13,8 +13,7 @@ Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
 # Source0-md5:	9c4ce318373b15332239a77a9d2a39fe
-Source1:	%{name}.fdi
-Source2:	%{name}.rules
+Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -174,7 +173,7 @@ install -d $RPM_BUILD_ROOT/lib/udev/rules.d
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man8/mount.ntfs-3g.8
 echo ".so ntfs-3g.8" > $RPM_BUILD_ROOT%{_mandir}/man8/mount.ntfs-3g.8
 
-install %{SOURCE2} $RPM_BUILD_ROOT/lib/udev/rules.d/99-ntfs3g.rules
+install %{SOURCE1} $RPM_BUILD_ROOT/lib/udev/rules.d/99-ntfs3g.rules
 
 # Symlink to allow automount using ntfs-3g:
 ln -sf %{_bindir}/ntfs-3g $RPM_BUILD_ROOT%{_sbindir}/mount.ntfs
