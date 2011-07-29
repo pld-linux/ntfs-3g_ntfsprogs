@@ -31,16 +31,20 @@ Haiku, and other operating systems. It provides safe handling of the
 Windows XP, Windows Server 2003, Windows 2000, Windows Vista, Windows
 Server 2008 and Windows 7 NTFS file systems.
 
+%description -l pl.UTF-8
+ntfs-3g_ntfsprogs to stabilny, pełny sterownik do systemu plików NTFS
+obsługujący odczyt i zapis dla systemów Linux, Android, Mac OS X,
+FreeBSD, NetBSD, OpenSolaris, QNX, Haiku i innych. Zapewnia bezpieczną
+obsługę systemów plików NTFS z systemów Windows XP, Windows Server
+2003, Windows 2000, Windows Vista, Windows Server 2008 i Windows 7.
+
 %package -n ntfsprogs
-Summary:	The NTFS driver with read and write support
-Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
+Summary:	Utilities for NTFS file systems
+Summary(pl.UTF-8):	Narzędzia do systemów plików NTFS
 Group:		Applications/System
 
 %description -n ntfsprogs
-The driver to NTFS with read and write support. It is able to
-unlimited and fully save file creation and deletion.
-
-This package contains the following utilities:
+This package contains the following utilities for NTFS file systems:
 
 - ntfsfix - attempt to fix an NTFS partition that has been damaged by
   the Linux NTFS driver. It should be run every time after you have
@@ -61,11 +65,7 @@ This package contains the following utilities:
 You can find more information about these utilities in their manuals.
 
 %description -n ntfsprogs -l pl.UTF-8
-Sterownik do systemu plików NTFS posiadający możliwość zarówno odczytu
-jak i zapisu. Umożliwia tworzenie i kasowanie plików nieograniczoną
-liczbę razy.
-
-Pakiet zawiera następujące narzędzia:
+Ten pakiet zawiera następujące narzędzia do systemów plików NTFS:
 
 - ntfsfix - próbuje naprawiać partycję NTFS uszkodzone przez linuksowy
   sterownik do NTFS. Powinien być uruchamiany po każdym zapisie na
@@ -99,15 +99,15 @@ jak i zapisu. Umożliwia tworzenie i kasowanie plików nieograniczoną
 liczbę razy.
 
 %package -n ntfs-3g-libs
-Summary:	ntfs-3g shared libraries
-Summary(pl.UTF-8):	Wspólne biblioteki ntfs-3g
+Summary:	ntfs-3g shared library
+Summary(pl.UTF-8):	Biblioteka współdzielona ntfs-3g
 Group:		Libraries
 
 %description -n ntfs-3g-libs
-ntfs-3g shared libraries.
+ntfs-3g shared library.
 
 %description -n ntfs-3g-libs -l pl.UTF-8
-Współdzielone biblioteki ntfs-3g.
+Biblioteka współdzielona ntfs-3g.
 
 %package -n ntfs-3g-devel
 Summary:	Header files for libntfs-3g library
@@ -118,15 +118,15 @@ Obsoletes:	ntfsprogs-devel
 
 %description -n ntfs-3g-devel
 This package includes the header files needed to link software with
-libnfts-3g libraries.
+libntfs-3g library.
 
 %description -n ntfs-3g-devel -l pl.UTF-8
 Pliki nagłówkowe potrzebne do budowania programów korzystających z
-bibliotek libntfs-3g.
+biblioteki libntfs-3g.
 
 %package -n ntfs-3g-static
 Summary:	Static version of libntfs-3g library
-Summary(pl.UTF-8):	Statyczna wersja bibliotek libntfs-3g
+Summary(pl.UTF-8):	Statyczna wersja biblioteki libntfs-3g
 Group:		Development/Libraries
 Requires:	ntfs-3g-devel = %{epoch}:%{version}-%{release}
 
@@ -134,7 +134,7 @@ Requires:	ntfs-3g-devel = %{epoch}:%{version}-%{release}
 This package contains the static version of libntfs-3g library.
 
 %description -n ntfs-3g-static -l pl.UTF-8
-Ten pakiet zawiera statyczną wersję bibliotek libntfs-3g.
+Ten pakiet zawiera statyczną wersję biblioteki libntfs-3g.
 
 %package -n ntfs-3g-udev
 Summary:	udev integration for ntfs-3g
@@ -183,8 +183,8 @@ ln -sf %{_bindir}/ntfs-3g $RPM_BUILD_ROOT%{_sbindir}/mount.ntfs
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -n ntfs-3g-libs -p /sbin/ldconfig
-%postun -n ntfs-3g-libs -p /sbin/ldconfig
+%post	-n ntfs-3g-libs -p /sbin/ldconfig
+%postun	-n ntfs-3g-libs -p /sbin/ldconfig
 
 %files -n ntfsprogs
 %defattr(644,root,root,755)
