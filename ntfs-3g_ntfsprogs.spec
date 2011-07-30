@@ -19,7 +19,11 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 %{!?with_internal_fuse:BuildRequires:	libfuse-devel >= 2.6.0}
 BuildRequires:	libtool
+BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
+# for crypto (not built yet)
+#BuildRequires:	gnutls-devel >= 1.4.4
+#BuildRequires:	libgcrypt-devel >= 1.2.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -42,6 +46,7 @@ obsługę systemów plików NTFS z systemów Windows XP, Windows Server
 Summary:	Utilities for NTFS file systems
 Summary(pl.UTF-8):	Narzędzia do systemów plików NTFS
 Group:		Applications/System
+Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
 
 %description -n ntfsprogs
 This package contains the following utilities for NTFS file systems:
@@ -58,9 +63,11 @@ This package contains the following utilities for NTFS file systems:
 - ntfslabel - display/change the label of an NTFS partition,
 - ntfsundelete - recover deleted files from an NTFS volume,
 - ntfsresize - resize an NTFS volume,
-- ntfsclone - clone, image, restore or rescue NTFS,
+- ntfsclone - clone, image, restore or rescue NTFS.
+%if 0
 - ntfswipe - wipe junk from unused space,
 - ntfsdecrypt - descrypt $EFS-encrypted files.
+%endif
 
 You can find more information about these utilities in their manuals.
 
@@ -73,13 +80,16 @@ Ten pakiet zawiera następujące narzędzia do systemów plików NTFS:
 
   WAŻNE: należy uruchamiać ten program tylko *po* odmontowaniu
   partycji pod Linuksem, ale *przed* uruchomieniem Windows NT/2000!
-- mkntfs - "formatuje" partycję NTFS.
-- ntfslabel - wyświetla/zmienia etykietę partycji NTFS.
-- ntfsundelete - odzyskuje usunięte pliki z wolumenu NTFS.
-- ntfsresize - zmienia rozmiar wolumenu NTFS.
-- ntfsclone
-- ntfswipe
-- ntfsdecrypt
+
+- mkntfs - "formatuje" partycję NTFS,
+- ntfslabel - wyświetla/zmienia etykietę partycji NTFS,
+- ntfsundelete - odzyskuje usunięte pliki z wolumenu NTFS,
+- ntfsresize - zmienia rozmiar wolumenu NTFS,
+- ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS.
+%if 0
+- ntfswipe - czyszczenie pozostałości z nieużywanego miejsca,
+- ntfsdecrypt - odszyfrowuje pliki zaszyfrowane $EFS.
+%endif
 
 Więcej informacji na temat tych narzędzi można znaleźć w manualach.
 
@@ -161,7 +171,11 @@ Integracja ntfs-3g z udevem.
 
 %configure \
 	--disable-ldconfig \
+	--enable-posix-acls \
+	--enable-xattr-mappings \
 	--with-fuse=%{?with_internal_fuse:in}%{!?with_internal_fuse:ex}ternal
+
+# --enable-crypto for ntfsdecrypt, but now it's not built anyway
 
 %{__make}
 
