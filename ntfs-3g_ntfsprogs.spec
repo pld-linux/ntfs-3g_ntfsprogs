@@ -6,7 +6,7 @@ Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
 Version:	2011.4.12
-Release:	3
+Release:	4
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
@@ -181,9 +181,17 @@ Integracja ntfs-3g z udevem.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/lib/udev/rules.d
+install -d $RPM_BUILD_ROOT{/%{_lib},/lib/udev/rules.d}
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+mv -f $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so
+ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo libntfs-3g.so.*.*) \
+	$RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.la
 
 # mount.ntfs-3g manpage fix
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man8/mount.ntfs-3g.8
@@ -250,13 +258,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libntfs-3g.so.81
+%attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.81
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libntfs-3g.so
-%{_libdir}/libntfs-3g.la
 %{_includedir}/ntfs-3g
 %{_pkgconfigdir}/libntfs-3g.pc
 
