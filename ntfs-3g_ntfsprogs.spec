@@ -5,14 +5,14 @@
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2011.4.12
+Version:	2012.1.15
 Release:	4
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	9c4ce318373b15332239a77a9d2a39fe
+# Source0-md5:	341acae00a290cab9b00464db65015cc
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
@@ -259,7 +259,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.81
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.83
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
