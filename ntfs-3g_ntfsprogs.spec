@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_with	internal_fuse	# build with internal libfuse
+%bcond_without	crypto		# ntfsdecrypt utility
 #
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
@@ -21,9 +22,10 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
-# for crypto (not built yet)
-#BuildRequires:	gnutls-devel >= 1.4.4
-#BuildRequires:	libgcrypt-devel >= 1.2.2
+%if %{with crypto}
+BuildRequires:	gnutls-devel >= 1.4.4
+BuildRequires:	libgcrypt-devel >= 1.2.2
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
@@ -64,10 +66,10 @@ This package contains the following utilities for NTFS file systems:
 - ntfsundelete - recover deleted files from an NTFS volume,
 - ntfsresize - resize an NTFS volume,
 - ntfsclone - clone, image, restore or rescue NTFS.
-%if 0
-- ntfswipe - wipe junk from unused space,
-- ntfsdecrypt - descrypt $EFS-encrypted files.
+%if %{with crypto}
+- ntfsdecrypt - descrypt $EFS-encrypted files,
 %endif
+- ntfswipe - wipe junk from unused space.
 
 You can find more information about these utilities in their manuals.
 
@@ -85,11 +87,11 @@ Ten pakiet zawiera następujące narzędzia do systemów plików NTFS:
 - ntfslabel - wyświetla/zmienia etykietę partycji NTFS,
 - ntfsundelete - odzyskuje usunięte pliki z wolumenu NTFS,
 - ntfsresize - zmienia rozmiar wolumenu NTFS,
-- ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS.
-%if 0
-- ntfswipe - czyszczenie pozostałości z nieużywanego miejsca,
-- ntfsdecrypt - odszyfrowuje pliki zaszyfrowane $EFS.
+- ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS,
+%if %{with crypto}
+- ntfsdecrypt - odszyfrowuje pliki zaszyfrowane $EFS,
 %endif
+- ntfswipe - czyszczenie pozostałości z nieużywanego miejsca.
 
 Więcej informacji na temat tych narzędzi można znaleźć w manualach.
 
@@ -171,11 +173,11 @@ Integracja ntfs-3g z udevem.
 
 %configure \
 	--disable-ldconfig \
+	%{?with_crypto:--enable-crypto} \
+	--enable-extras \
 	--enable-posix-acls \
 	--enable-xattr-mappings \
 	--with-fuse=%{?with_internal_fuse:in}%{!?with_internal_fuse:ex}ternal
-
-# --enable-crypto for ntfsdecrypt, but now it's not built anyway
 
 %{__make}
 
@@ -211,11 +213,18 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfsprogs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ntfscat
+%attr(755,root,root) %{_bindir}/ntfsck
 %attr(755,root,root) %{_bindir}/ntfscluster
 %attr(755,root,root) %{_bindir}/ntfscmp
+%{?with_crypto:%attr(755,root,root) %{_bindir}/ntfsdecrypt}
+%attr(755,root,root) %{_bindir}/ntfsdump_logfile
 %attr(755,root,root) %{_bindir}/ntfsfix
 %attr(755,root,root) %{_bindir}/ntfsinfo
 %attr(755,root,root) %{_bindir}/ntfsls
+%attr(755,root,root) %{_bindir}/ntfsmftalloc
+%attr(755,root,root) %{_bindir}/ntfsmove
+%attr(755,root,root) %{_bindir}/ntfstruncate
+%attr(755,root,root) %{_bindir}/ntfswipe
 %attr(755,root,root) %{_sbindir}/mkntfs
 %attr(755,root,root) %{_sbindir}/ntfsclone
 %attr(755,root,root) %{_sbindir}/ntfscp
