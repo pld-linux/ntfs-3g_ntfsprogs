@@ -1,13 +1,13 @@
 #
 # Conditional build:
 %bcond_with	internal_fuse	# build with internal libfuse
-%bcond_without	crypto		# ntfsdecrypt utility
+%bcond_with	crypto		# ntfsdecrypt utility
 #
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
 Version:	2013.1.13
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
@@ -24,6 +24,7 @@ BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 %if %{with crypto}
 BuildRequires:	gnutls-devel >= 1.4.4
+BuildRequires:	libgcrypt-devel < 1.6.0
 BuildRequires:	libgcrypt-devel >= 1.2.2
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -49,18 +50,17 @@ Summary:	Utilities for NTFS file systems
 Summary(pl.UTF-8):	Narzędzia do systemów plików NTFS
 Group:		Applications/System
 Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
+%{?with_crypto:Conflicts:	libgcrypt >= 1.6.0}
 
 %description -n ntfsprogs
 This package contains the following utilities for NTFS file systems:
 
 - ntfsfix - attempt to fix an NTFS partition that has been damaged by
-  the Linux NTFS driver. It should be run every time after you have
-  used the Linux NTFS driver to write to an NTFS partition to prevent
-  massive data corruption from happening when Windows mounts the
-  partition.
-
-  IMPORTANT: Run this only *after* unmounting the partition in Linux
-  but *before* rebooting into Windows NT/2000!,
+  the Linux NTFS driver. It should be run every time after you have used
+  the Linux NTFS driver to write to an NTFS partition to prevent massive
+  data corruption from happening when Windows mounts the partition.
+  IMPORTANT: Run this only *after* unmounting the partition in Linux but
+  *before* rebooting into Windows NT/2000!,
 - mkntfs - create partition with the NTFS filesystem,
 - ntfslabel - display/change the label of an NTFS partition,
 - ntfsundelete - recover deleted files from an NTFS volume,
@@ -68,8 +68,10 @@ This package contains the following utilities for NTFS file systems:
 - ntfsclone - clone, image, restore or rescue NTFS.
 %if %{with crypto}
 - ntfsdecrypt - descrypt $EFS-encrypted files,
+- ntfsclone - clone, image, restore or rescue NTFS.
 %endif
 - ntfswipe - wipe junk from unused space.
+- ntfsclone - clone, image, restore or rescue NTFS.
 
 You can find more information about these utilities in their manuals.
 
@@ -78,11 +80,9 @@ Ten pakiet zawiera następujące narzędzia do systemów plików NTFS:
 
 - ntfsfix - próbuje naprawiać partycję NTFS uszkodzone przez linuksowy
   sterownik do NTFS. Powinien być uruchamiany po każdym zapisie na
-  partycji NTFS, aby zapobiec masowemu zniszczeniu danych.
-
-  WAŻNE: należy uruchamiać ten program tylko *po* odmontowaniu
-  partycji pod Linuksem, ale *przed* uruchomieniem Windows NT/2000!
-
+  partycji NTFS, aby zapobiec masowemu zniszczeniu danych. WAŻNE: należy
+  uruchamiać ten program tylko *po* odmontowaniu partycji pod Linuksem,
+  ale *przed* uruchomieniem Windows NT/2000!,
 - mkntfs - "formatuje" partycję NTFS,
 - ntfslabel - wyświetla/zmienia etykietę partycji NTFS,
 - ntfsundelete - odzyskuje usunięte pliki z wolumenu NTFS,
@@ -90,8 +90,10 @@ Ten pakiet zawiera następujące narzędzia do systemów plików NTFS:
 - ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS,
 %if %{with crypto}
 - ntfsdecrypt - odszyfrowuje pliki zaszyfrowane $EFS,
+- ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS,
 %endif
 - ntfswipe - czyszczenie pozostałości z nieużywanego miejsca.
+- ntfsclone - klonuje, tworzy obrazy i odtwarza NTFS,
 
 Więcej informacji na temat tych narzędzi można znaleźć w manualach.
 
