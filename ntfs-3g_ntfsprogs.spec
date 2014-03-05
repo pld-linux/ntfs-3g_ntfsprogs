@@ -1,19 +1,19 @@
 #
 # Conditional build:
 %bcond_with	internal_fuse	# build with internal libfuse
-%bcond_with	crypto		# ntfsdecrypt utility
+%bcond_without	crypto		# ntfsdecrypt utility
 #
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2013.1.13
-Release:	3
+Version:	2014.2.15
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	2d6fb47ddf62b51733227126fe9227fe
+# Source0-md5:	f11d563816249d730a00498983485f3a
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
@@ -24,7 +24,6 @@ BuildRequires:	libuuid-devel
 BuildRequires:	pkgconfig
 %if %{with crypto}
 BuildRequires:	gnutls-devel >= 1.4.4
-BuildRequires:	libgcrypt-devel < 1.6.0
 BuildRequires:	libgcrypt-devel >= 1.2.2
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -50,7 +49,6 @@ Summary:	Utilities for NTFS file systems
 Summary(pl.UTF-8):	Narzędzia do systemów plików NTFS
 Group:		Applications/System
 Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
-%{?with_crypto:Conflicts:	libgcrypt >= 1.6.0}
 
 %description -n ntfsprogs
 This package contains the following utilities for NTFS file systems:
@@ -270,7 +268,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.84
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.85
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
