@@ -1,23 +1,25 @@
 #
 # Conditional build:
 %bcond_with	internal_fuse	# build with internal libfuse
+%bcond_with	quarantined	# build with quarantined utilities
 %bcond_without	crypto		# ntfsdecrypt utility
 #
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2014.2.15
+Version:	2015.3.14
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	f11d563816249d730a00498983485f3a
+# Source0-md5:	8cd57768310e3b2be39b3191d808e241
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
+BuildRequires:	hwinfo-devel
 %{!?with_internal_fuse:BuildRequires:	libfuse-devel >= 2.6.0}
 BuildRequires:	libtool
 BuildRequires:	libuuid-devel
@@ -176,6 +178,7 @@ Integracja ntfs-3g z udevem.
 	%{?with_crypto:--enable-crypto} \
 	--enable-extras \
 	--enable-posix-acls \
+	%{?with_quarantined:--enable-quarantined} \
 	--enable-xattr-mappings \
 	--with-fuse=%{?with_internal_fuse:in}%{!?with_internal_fuse:ex}ternal
 
@@ -204,6 +207,8 @@ install %{SOURCE1} $RPM_BUILD_ROOT/lib/udev/rules.d/99-ntfs3g.rules
 # Symlink to allow automount using ntfs-3g:
 ln -sf %{_bindir}/ntfs-3g $RPM_BUILD_ROOT%{_sbindir}/mount.ntfs
 
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/ntfs-3g
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -213,18 +218,21 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfsprogs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ntfscat
-%attr(755,root,root) %{_bindir}/ntfsck
 %attr(755,root,root) %{_bindir}/ntfscluster
 %attr(755,root,root) %{_bindir}/ntfscmp
 %{?with_crypto:%attr(755,root,root) %{_bindir}/ntfsdecrypt}
-%attr(755,root,root) %{_bindir}/ntfsdump_logfile
 %attr(755,root,root) %{_bindir}/ntfsfix
 %attr(755,root,root) %{_bindir}/ntfsinfo
 %attr(755,root,root) %{_bindir}/ntfsls
-%attr(755,root,root) %{_bindir}/ntfsmftalloc
-%attr(755,root,root) %{_bindir}/ntfsmove
 %attr(755,root,root) %{_bindir}/ntfstruncate
 %attr(755,root,root) %{_bindir}/ntfswipe
+%if %{with quarantined}
+%attr(755,root,root) %{_bindir}/ntfsck
+%attr(755,root,root) %{_bindir}/ntfsdump_logfile
+%attr(755,root,root) %{_bindir}/ntfsfallocate
+%attr(755,root,root) %{_bindir}/ntfsmftalloc
+%attr(755,root,root) %{_bindir}/ntfsmove
+%endif
 %attr(755,root,root) %{_sbindir}/mkntfs
 %attr(755,root,root) %{_sbindir}/ntfsclone
 %attr(755,root,root) %{_sbindir}/ntfscp
@@ -239,13 +247,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/ntfscluster.8*
 %{_mandir}/man8/ntfscmp.8*
 %{_mandir}/man8/ntfscp.8*
+%{_mandir}/man8/ntfsdecrypt.8*
+%{_mandir}/man8/ntfsfallocate.8*
 %{_mandir}/man8/ntfsfix.8*
 %{_mandir}/man8/ntfsinfo.8*
 %{_mandir}/man8/ntfslabel.8*
 %{_mandir}/man8/ntfsls.8*
 %{_mandir}/man8/ntfsprogs.8*
 %{_mandir}/man8/ntfsresize.8*
+%{_mandir}/man8/ntfstruncate.8*
 %{_mandir}/man8/ntfsundelete.8*
+%{_mandir}/man8/ntfswipe.8*
 
 %files -n ntfs-3g
 %defattr(644,root,root,755)
@@ -268,7 +280,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.85
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.86
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
