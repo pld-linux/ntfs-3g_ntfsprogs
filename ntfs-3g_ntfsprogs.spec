@@ -7,14 +7,14 @@
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2015.3.14
+Version:	2016.2.22
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	8cd57768310e3b2be39b3191d808e241
+# Source0-md5:	ccbe8672d0f757bd0c975b50aa4c512e
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
@@ -224,6 +224,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ntfsfix
 %attr(755,root,root) %{_bindir}/ntfsinfo
 %attr(755,root,root) %{_bindir}/ntfsls
+%attr(755,root,root) %{_bindir}/ntfsrecover
 %attr(755,root,root) %{_bindir}/ntfstruncate
 %attr(755,root,root) %{_bindir}/ntfswipe
 %if %{with quarantined}
@@ -254,6 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/ntfslabel.8*
 %{_mandir}/man8/ntfsls.8*
 %{_mandir}/man8/ntfsprogs.8*
+%{_mandir}/man8/ntfsrecover.8*
 %{_mandir}/man8/ntfsresize.8*
 %{_mandir}/man8/ntfstruncate.8*
 %{_mandir}/man8/ntfsundelete.8*
@@ -280,7 +282,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.86
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.87
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
