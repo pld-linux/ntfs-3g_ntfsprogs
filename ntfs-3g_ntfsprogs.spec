@@ -7,14 +7,14 @@
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2016.2.22
-Release:	2
+Version:	2017.3.23
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	ccbe8672d0f757bd0c975b50aa4c512e
+# Source0-md5:	d97474ae1954f772c6d2fa386a6f462c
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
@@ -267,8 +267,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/lowntfs-3g
 %attr(755,root,root) %{_bindir}/ntfs-3g
 %attr(755,root,root) %{_bindir}/ntfs-3g.probe
-%attr(755,root,root) %{_bindir}/ntfs-3g.secaudit
-%attr(755,root,root) %{_bindir}/ntfs-3g.usermap
+%attr(755,root,root) %{_bindir}/ntfssecaudit
+%attr(755,root,root) %{_bindir}/ntfsusermap
 %attr(755,root,root) %{_sbindir}/mount.lowntfs-3g
 %attr(755,root,root) %{_sbindir}/mount.ntfs
 %attr(755,root,root) %{_sbindir}/mount.ntfs-3g
@@ -276,13 +276,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/mount.ntfs-3g.8*
 %{_mandir}/man8/ntfs-3g.8*
 %{_mandir}/man8/ntfs-3g.probe.8*
-%{_mandir}/man8/ntfs-3g.secaudit.8*
-%{_mandir}/man8/ntfs-3g.usermap.8*
+%{_mandir}/man8/ntfssecaudit.8*
+%{_mandir}/man8/ntfsusermap.8*
 
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.87
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.88
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
