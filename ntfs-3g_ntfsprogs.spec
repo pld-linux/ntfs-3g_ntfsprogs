@@ -7,14 +7,14 @@
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2017.3.23
+Version:	2021.8.22
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	d97474ae1954f772c6d2fa386a6f462c
+# Source0-md5:	90da343e78877d388eb34cefae6799ae
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
@@ -282,7 +282,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntfs-3g-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) /%{_lib}/libntfs-3g.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.88
+%attr(755,root,root) %ghost /%{_lib}/libntfs-3g.so.89
 
 %files -n ntfs-3g-devel
 %defattr(644,root,root,755)
