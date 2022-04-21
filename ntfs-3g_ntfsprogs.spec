@@ -13,7 +13,7 @@ Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
-Source0:	http://www.tuxera.com/opensource/%{name}-%{version}.tgz
+Source0:	https://www.tuxera.com/opensource/%{name}-%{version}.tgz
 # Source0-md5:	90da343e78877d388eb34cefae6799ae
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
