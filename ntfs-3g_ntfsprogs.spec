@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_with	internal_fuse	# build with internal libfuse
-%bcond_with	quarantined	# build with quarantined utilities
+%bcond_with	internal_fuse	# internal libfuse
+%bcond_with	quarantined	# quarantined utilities
 %bcond_without	crypto		# ntfsdecrypt utility
 #
 Summary:	The NTFS driver with read and write support
@@ -101,7 +101,7 @@ Więcej informacji na temat tych narzędzi można znaleźć w manualach.
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Group:		Applications/System
-Obsoletes:	ntfsprogs-fuse
+Obsoletes:	ntfsprogs-fuse < 2.1
 
 %description -n ntfs-3g
 The driver to NTFS with read and write support. It is able to
@@ -128,7 +128,7 @@ Summary:	Header files for libntfs-3g library
 Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki libntfs-3g
 Group:		Development/Libraries
 Requires:	ntfs-3g-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	ntfsprogs-devel
+Obsoletes:	ntfsprogs-devel < 2.1
 
 %description -n ntfs-3g-devel
 This package includes the header files needed to link software with
@@ -155,7 +155,7 @@ Summary:	udev integration for ntfs-3g
 Summary(pl.UTF-8):	Integracja ntfs-3g z udevem
 Group:		Applications/System
 Requires:	ntfs-3g = %{epoch}:%{version}-%{release}
-Obsoletes:	ntfs-3g-hal
+Obsoletes:	ntfs-3g-hal < 1:2011.4.12-1
 
 %description -n ntfs-3g-udev
 udev integration for ntfs-3g.
@@ -191,7 +191,7 @@ install -d $RPM_BUILD_ROOT{/%{_lib},/lib/udev/rules.d}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so.* $RPM_BUILD_ROOT/%{_lib}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so
 ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo libntfs-3g.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libntfs-3g.so
