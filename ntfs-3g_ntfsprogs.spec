@@ -7,14 +7,14 @@
 Summary:	The NTFS driver with read and write support
 Summary(pl.UTF-8):	Sterownik do NTFS umożliwiający odczyt i zapis
 Name:		ntfs-3g_ntfsprogs
-Version:	2022.5.17
+Version:	2022.10.3
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/System
 #Source0-Download: http://www.tuxera.com/community/ntfs-3g-download/
 Source0:	https://www.tuxera.com/opensource/%{name}-%{version}.tgz
-# Source0-md5:	18a97a9a9e08f02f46fe447f611f16cb
+# Source0-md5:	a038af61be7584b79f8922ff11244090
 Source1:	%{name}.rules
 URL:		http://www.tuxera.com/community/
 BuildRequires:	autoconf >= 2.59
